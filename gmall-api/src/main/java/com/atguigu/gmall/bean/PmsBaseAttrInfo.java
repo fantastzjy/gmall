@@ -21,6 +21,8 @@ public class PmsBaseAttrInfo implements Serializable {
     private String catalog3Id;
     @Column
     private String isEnabled;
+
+    //注意这里标记的是Transient 代表着不会保存到数据库
     @Transient
     List<PmsBaseAttrValue> attrValueList;
 
