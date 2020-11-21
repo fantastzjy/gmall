@@ -26,14 +26,23 @@ public class AttrServiceImpl implements AttrService {
     PmsBaseSaleAttrMapper pmsBaseSaleAttrMapper;
 
 
-
-
     @Override
     public List<PmsBaseAttrInfo> attrInfoList(String catalog3Id) {
 
         PmsBaseAttrInfo pmsBaseAttrInfo = new PmsBaseAttrInfo();
         pmsBaseAttrInfo.setCatalog3Id(catalog3Id);
         List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.select(pmsBaseAttrInfo);
+
+        //foreach循环中对pmsBaseAttrInfo的操作就是对pmsBaseAttrInfos中每一个进行操作，保存值进去也是
+        for (PmsBaseAttrInfo pmsBaseAttrInfo1 : pmsBaseAttrInfos) {
+            PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
+            pmsBaseAttrValue.setAttrId(pmsBaseAttrInfo1.getId());
+            List<PmsBaseAttrValue> pmsBaseAttrValues = pmsBaseAttrValueMapper.select(pmsBaseAttrValue);
+            pmsBaseAttrInfo1.setAttrValueList(pmsBaseAttrValues);
+        }
+
+
+
         return pmsBaseAttrInfos;
     }
 
