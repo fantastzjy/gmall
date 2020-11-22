@@ -21,7 +21,7 @@ public class SpuController {
 
     @RequestMapping("spuImageList")
     @ResponseBody
-    public List<PmsProductImage> spuImageList(String spuId){
+    public List<PmsProductImage> spuImageList(String spuId) {
 
         List<PmsProductImage> pmsProductImages = spuService.spuImageList(spuId);
         return pmsProductImages;

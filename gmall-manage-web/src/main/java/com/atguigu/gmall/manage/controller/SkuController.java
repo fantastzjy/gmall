@@ -21,14 +21,14 @@ public class SkuController {
 
     @RequestMapping("saveSkuInfo")
     @ResponseBody
-    public String saveSkuInfo(@RequestBody PmsSkuInfo pmsSkuInfo){
+    public String saveSkuInfo(@RequestBody PmsSkuInfo pmsSkuInfo) {
 
         // 将spuId封装给productId
         pmsSkuInfo.setProductId(pmsSkuInfo.getSpuId());
 
         // 处理默认图片
         String skuDefaultImg = pmsSkuInfo.getSkuDefaultImg();
-        if(StringUtils.isBlank(skuDefaultImg)){
+        if (StringUtils.isBlank(skuDefaultImg)) {
             pmsSkuInfo.setSkuDefaultImg(pmsSkuInfo.getSkuImageList().get(0).getImgUrl());
         }
 
@@ -38,8 +38,6 @@ public class SkuController {
 
         return "success";
     }
-
-
 
 
 }

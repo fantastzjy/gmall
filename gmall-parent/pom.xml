@@ -72,7 +72,7 @@
                 <version>${mybatis.version}</version>
             </dependency>
 
-
+            <!-- thymeleaf支持包、可以设置松校验、热部署  下面三个-->
             <dependency>
                 <groupId>net.sourceforge.nekohtml</groupId>
                 <artifactId>nekohtml</artifactId>

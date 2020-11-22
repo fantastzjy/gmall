@@ -23,12 +23,11 @@ public class AttrController {
 
     @RequestMapping("baseSaleAttrList")
     @ResponseBody
-    public List<PmsBaseSaleAttr> baseSaleAttrList(){
+    public List<PmsBaseSaleAttr> baseSaleAttrList() {
 
         List<PmsBaseSaleAttr> pmsBaseSaleAttrs = attrService.baseSaleAttrList();
         return pmsBaseSaleAttrs;
     }
-
 
 
     @RequestMapping("saveAttrInfo")

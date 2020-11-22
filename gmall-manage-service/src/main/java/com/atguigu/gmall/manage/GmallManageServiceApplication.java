@@ -8,8 +8,8 @@ import tk.mybatis.spring.annotation.MapperScan;
 @MapperScan(basePackages = "com.atguigu.gmall.manage.mapper")
 public class GmallManageServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GmallManageServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GmallManageServiceApplication.class, args);
+    }
 
 }

@@ -42,7 +42,6 @@ public class AttrServiceImpl implements AttrService {
         }
 
 
-
         return pmsBaseAttrInfos;
     }
 
