@@ -25,9 +25,21 @@
 
         <input type="checkbox" th:checked="${check}=='1'" />
 
-        <!-- 页面引入-->
-
         <!-- 传值给javascript -->
+        <a th:href="'javascript:a(\''+${hello}+'\')'">点我</a>
+
+        <a href="javascript:a('abc')">点我123</a>
+
+
+        <!-- 页面引入-->
+        <div th:include="indexInner::innerPart">被引入的页面</div>
+
+
+<script language="JavaScript">
+    function a(hello) {
+        alert("js函数被调用:"+hello);
+    }
+</script>
 
 </body>
 </html>

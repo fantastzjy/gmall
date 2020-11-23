@@ -6,4 +6,6 @@ public interface SkuService {
 
 
     void saveSkuInfo(PmsSkuInfo pmsSkuInfo);
+
+    PmsSkuInfo getSkuInfo(String skuId);
 }

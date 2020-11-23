@@ -60,6 +60,24 @@ public class SkuServiceImpl implements SkuService {
 
 
     }
+
+    @Override
+    public PmsSkuInfo getSkuInfo(String skuId) {
+
+        PmsSkuInfo pmsSkuInfo = new PmsSkuInfo();
+        pmsSkuInfo.setId(skuId);
+        PmsSkuInfo SkuInfo = pmsSkuInfoMapper.selectOne(pmsSkuInfo);
+
+        PmsSkuImage pmsSkuImage = new PmsSkuImage();
+        pmsSkuImage.setSkuId(skuId);
+        List<PmsSkuImage> pmsSkuImages = pmsSkuImageMapper.select(pmsSkuImage);
+
+        SkuInfo.setSkuImageList(pmsSkuImages);
+
+
+
+        return SkuInfo;
+    }
 }
 
 
