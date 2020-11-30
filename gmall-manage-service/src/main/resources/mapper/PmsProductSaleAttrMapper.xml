@@ -5,8 +5,7 @@
 <mapper namespace="com.atguigu.gmall.manage.mapper.PmsProductSaleAttrMapper">
 
     <select id="selectSpuSaleAttrListCheckBySku" resultMap="selectSpuSaleAttrListCheckBySkuMap">
-
-       SELECT
+        SELECT
             sa.id as sa_id , sav.id as sav_id , sa.*,sav.*, if(ssav.sku_id,1,0) as isChecked
         FROM
             pms_product_sale_attr sa
@@ -15,20 +14,17 @@
         AND sa.product_id = #{productId}
         LEFT JOIN pms_sku_sale_attr_value ssav ON sav.id = ssav.sale_attr_value_id
         AND ssav.sku_id = #{skuId}
+        order by sav.id
 
     </select>
+
     <resultMap id="selectSpuSaleAttrListCheckBySkuMap" type="com.atguigu.gmall.bean.PmsProductSaleAttr"
                autoMapping="true">
-
         <result column="sa_id" property="id"></result>
-
         <collection property="spuSaleAttrValueList" ofType="com.atguigu.gmall.bean.PmsProductSaleAttrValue"
                     autoMapping="true">
             <result column="sav_id" property="id"></result>
-
         </collection>
-
-
     </resultMap>
 
 

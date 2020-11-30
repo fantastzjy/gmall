@@ -1,11 +1,14 @@
 # gmall0105 本地修改版本
 # gmall-user用户服务8080
-gmall-user-service用户服务的service层8070
-gmall-user-web用户服务的web层8080
+gmall-user-service     8070
+gmall-user-web         8071
+gmall-manage-service   8072
+gmall-manage-web       8073
+gmall-item-web         8074
+gmall-redission-test   8075
+gmall-search-service   8076
+gmall-search-web       8077
 
-
-
-gmall-user用户服务8080
 
 
 对应5.24
@@ -89,3 +92,31 @@ import com.alibaba.dubbo.config.annotation.Service;
   eg.
      @Service
      public class UserServiceImpl implements UserService
+
+
+
+
+
+    <select id="selectSpuSaleAttrListCheckBySku" resultMap="selectSpuSaleAttrListCheckBySkuMap">
+        SELECT
+            sa.id as sa_id , sav.id as sav_id , sa.*,sav.*, if(ssav.sku_id,1,0) as isChecked
+        FROM
+            pms_product_sale_attr sa
+        INNER JOIN pms_product_sale_attr_value sav ON sa.product_id = sav.product_id
+        AND sa.sale_attr_id = sav.sale_attr_id
+        AND sa.product_id = #{productId}
+        LEFT JOIN pms_sku_sale_attr_value ssav ON sav.id = ssav.sale_attr_value_id
+        AND ssav.sku_id = #{skuId}
+
+    </select>
+
+    <!--    autoMapping="true"     设置完主键id后其他的字段自动映射匹配-->
+    <resultMap id="selectSpuSaleAttrListCheckBySkuMap" type="com.atguigu.gmall.bean.PmsProductSaleAttr"
+               autoMapping="true">
+        <result column="sa_id" property="id"></result>
+        <!--        这个是属于嵌套的-->
+        <collection property="spuSaleAttrValueList" ofType="com.atguigu.gmall.bean.PmsProductSaleAttrValue"
+                    autoMapping="true">
+            <result column="sav_id" property="id"></result>
+        </collection>
+    </resultMap>
