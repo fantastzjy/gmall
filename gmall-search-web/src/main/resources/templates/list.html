@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/list/css/index.css">
     <link rel="stylesheet" type="text/css" href="/list/font/iconfont.css">
     <script src="/list/js/jquery-1.12.4.js"></script>
-    <title>Document</title>
+    <title>商品检索结果</title>
 </head>
 <body>
 <!--头部-->
@@ -37,7 +37,7 @@
         <a href="#"><img src="/list/image/at.jpg" alt="" width="180px" height="70px"></a>
     </div>
     <div class="header_form">
-        <input id="keyword" name="keyword" type="text" placeholder="手机" />
+        <input id="keyword" name="keyword" type="text" placeholder="输入搜索关键词"    th:if="${keyword}!=null" th:value="${keyword}"  />
         <a href="#" onclick="searchList()">搜索</a>
     </div>
     <div class="header_ico">
@@ -61,7 +61,7 @@
 
 </div>
 
-<hr style="border: 1px solid red;margin-top: -7px;">
+<hr style="border: 1px solid #ff0000;margin-top: -7px;">
 
 <br/>
 <div class="GM_ipone">
@@ -69,8 +69,9 @@
         <div class="GM_ipone_one a">
             筛选条件
         </div>
+<!--        面包屑-->
         <i><img src="/list/image/right-@1x.png" alt=""></i>
-        <span th:if="${keyword}!=null" th:text="'&quot;'+${keyword}+'&quot;'">&quot;小米&quot;</span>
+        <span th:if="${keyword}!=null" th:text="'&quot;'+${keyword}+'&quot;'">&quot;检索关键词&quot;</span>
         <a class="select-attr"   th:each="baseAttrValueSelected:${attrValueSelectedList}"    th:href="'list.html?'+${baseAttrValueSelected.urlParam}"   th:utext=" ${baseAttrValueSelected.valueName} +'<b> ✖ </b>'"  > 2G<b> ✖ </b>
         </a>
         <!-- <a class="select-attr"   href="#"      > 屏幕尺寸:5.1-5.5英寸<b> ✖ </b>
@@ -89,7 +90,7 @@
 
             </div>
             <div class="GM_nav_logo">
-
+                <!-- 属性值展示-->
                 <div class="GM_pre"  th:each="attrInfo:${attrList}">
                     <div class="sl_key">
                         <span th:text="${attrInfo.attrName}+':'">属性：</span>
@@ -455,7 +456,8 @@
         $(this).css({display:"none"})
     });
     //显示隐藏
-    var $li = $(".GM_nav_logo>div:gt(3)").hide();
+    // var $li = $(".GM_nav_logo>div:gt(3)").hide();    属性为下拉框隐藏一部分，但是做的有问题就让他全都显示
+    var $li = $(".GM_nav_logo>div:gt(3)").show();
     $('.GM_show span').click(function(){
         if($li.is(':hidden')){
             $li.show();

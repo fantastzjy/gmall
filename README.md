@@ -1,15 +1,15 @@
 # gmall0105 本地修改版本
 # gmall-user用户服务8080
-gmall-user-service     8070
-gmall-user-web         8071
-gmall-manage-service   8072
-gmall-manage-web       8073
-gmall-item-web         8074
-gmall-redission-test   8075
-gmall-search-service   8076
-gmall-search-web       8077
+```**gmall-user-service     8070**<br/>
+**gmall-user-web         8071**<br/>
+**gmall-manage-service   8072**<br/>
+**gmall-manage-web       8073**<br/>
+**gmall-item-web         8074**<br/>
+**gmall-redission-test   8075**<br/>
+**gmall-search-service   8076**<br/>
+**gmall-search-web       8077**<br/>
 
-
+```
 
 对应5.24
  ####抽取api工程（负责管理项目中所有的接口和bean）

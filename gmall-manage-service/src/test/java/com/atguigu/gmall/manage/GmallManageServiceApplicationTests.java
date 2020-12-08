@@ -57,6 +57,7 @@ public class GmallManageServiceApplicationTests {
 
             //将查询出来的转化为long类型，要存储在elasticsearch进行排序，
             // 因为从mysql中查询出来的是string类型的，不能尽心排序
+            //这里解决了 pmsSkuInfo, pmsSearchSkuInfo 两个id类型不匹配的问题   如果不转化，主键都是0，会互相覆盖掉
             String skuId = pmsSkuInfo.getId();
             pmsSearchSkuInfo.setId(Long.parseLong(skuId));
             pmsSearchSkuInfos.add(pmsSearchSkuInfo);
@@ -66,6 +67,7 @@ public class GmallManageServiceApplicationTests {
         // 导入es   导入时需要将集合中循环单条导入
         for (PmsSearchSkuInfo pmsSearchSkuInfo : pmsSearchSkuInfos) {
             //pmsSearchSkuInfo会转化为json格式的
+            //elashsearch要求数据的主键必须是字符串，pmsSearchSkuInfo的Id仍然是long，这里只是把查询出来的skuid当做elashsearch的主键
             Index put = new Index.Builder(pmsSearchSkuInfo).index("gmall").type("PmsSkuInfo").id(pmsSearchSkuInfo.getId() + "").build();
             jestClient.execute(put);
         }

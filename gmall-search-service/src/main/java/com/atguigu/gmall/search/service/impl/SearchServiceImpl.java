@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 @Service
 public class SearchServiceImpl implements SearchService {
 
@@ -48,58 +49,63 @@ public class SearchServiceImpl implements SearchService {
         List<SearchResult.Hit<PmsSearchSkuInfo, Void>> hits = execute.getHits(PmsSearchSkuInfo.class);
         for (SearchResult.Hit<PmsSearchSkuInfo, Void> hit : hits) {
             PmsSearchSkuInfo source = hit.source;
+
             Map<String, List<String>> highlight = hit.highlight;
-            String skuName = highlight.get("skuName").get(0);
-            source.setSkuName(skuName);
+            //如果根据平台属性进来是不会有高亮的，这里要判断是否为空的判断
+            if(highlight!=null){
+                String skuName = highlight.get("skuName").get(0);
+                source.setSkuName(skuName);
+            }
+
             pmsSearchSkuInfos.add(source);
         }
-
-        System.out.println(pmsSearchSkuInfos.size());
+        //查询到的结果条数
+        //System.out.println(pmsSearchSkuInfos.size());
         return pmsSearchSkuInfos;
     }
 
 
     private String getSearchDsl(PmsSearchParam pmsSearchParam) {
-        List<PmsSkuAttrValue> skuAttrValueList = pmsSearchParam.getSkuAttrValueList();
+         String[] skuAttrValueList = pmsSearchParam.getValueId();
         String keyword = pmsSearchParam.getKeyword();
         String catalog3Id = pmsSearchParam.getCatalog3Id();
 
         // jest的dsl工具
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        // bool
-        BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
+                // bool
+                BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
 
-        // filter
-        if (StringUtils.isNotBlank(catalog3Id)) {
-            TermQueryBuilder termQueryBuilder = new TermQueryBuilder("catalog3Id", catalog3Id);
-            boolQueryBuilder.filter(termQueryBuilder);
-        }
-        if (skuAttrValueList != null) {
-            for (PmsSkuAttrValue pmsSkuAttrValue : skuAttrValueList) {
-                TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.valueId", pmsSkuAttrValue.getValueId());
-                boolQueryBuilder.filter(termQueryBuilder);
-            }
-        }
+                        // filter
+                        if (StringUtils.isNotBlank(catalog3Id)) {
+                            TermQueryBuilder termQueryBuilder = new TermQueryBuilder("catalog3Id", catalog3Id);
+                            boolQueryBuilder.filter(termQueryBuilder);
+                        }
+                        if (skuAttrValueList != null) {
+                            for (String pmsSkuAttrValue : skuAttrValueList) {
+                                TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.valueId", pmsSkuAttrValue);
+                                boolQueryBuilder.filter(termQueryBuilder);
+                            }
+                        }
 
 
-        // must
-        if (StringUtils.isNotBlank(keyword)) {
-            MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("skuName", keyword);
-            boolQueryBuilder.must(matchQueryBuilder);
-        }
+                        // must
+                        if (StringUtils.isNotBlank(keyword)) {
+                            MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("skuName", keyword);
+                            boolQueryBuilder.must(matchQueryBuilder);
+                        }
 
         // query
         searchSourceBuilder.query(boolQueryBuilder);
 
-        // highlight
-        HighlightBuilder highlightBuilder = new HighlightBuilder();
-        highlightBuilder.preTags("<span style='color:red;'>");
-        highlightBuilder.field("skuName");
-        highlightBuilder.postTags("</span>");
+            // highlight
+            HighlightBuilder highlightBuilder = new HighlightBuilder();
+                highlightBuilder.preTags("<span style='color:red;'>");
+                highlightBuilder.field("skuName");
+                highlightBuilder.postTags("</span>");
         searchSourceBuilder.highlight(highlightBuilder);
 
         searchSourceBuilder.highlight(highlightBuilder);
-        // sort
+        // sort 排序，把最新的排到前面
         searchSourceBuilder.sort("id", SortOrder.DESC);
         // from
         searchSourceBuilder.from(0);
