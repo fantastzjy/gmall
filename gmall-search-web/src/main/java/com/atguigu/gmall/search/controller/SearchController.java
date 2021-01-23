@@ -57,7 +57,7 @@ public class SearchController {
 
                 PmsSearchCrumb pmsSearchCrumb = new PmsSearchCrumb();
                 pmsSearchCrumb.setValueId(delValueId);
-                String urlParam = getUrlParamForCrumb(pmsSearchParam,delValueId);
+                String urlParam = getUrlParamForCrumb(pmsSearchParam, delValueId);
                 pmsSearchCrumb.setUrlParam(urlParam);
 
                 Iterator<PmsBaseAttrInfo> iterator = pmsBaseAttrInfos.iterator();
@@ -125,15 +125,12 @@ public class SearchController {
          }
 
          modelMap.put("attrValueSelectedList", pmsSearchCrumbs);
-
-
          *
          *
          *
          *
          *
          */
-
 
 
         String urlParam = getUrlParam(pmsSearchParam);
@@ -149,7 +146,7 @@ public class SearchController {
         return "list";
     }
 
-    private String getUrlParamForCrumb(PmsSearchParam pmsSearchParam,String delValueId) {
+    private String getUrlParamForCrumb(PmsSearchParam pmsSearchParam, String delValueId) {
 
         String catalog3Id = pmsSearchParam.getCatalog3Id();
         String keyword = pmsSearchParam.getKeyword();
@@ -177,7 +174,7 @@ public class SearchController {
             //    urlParam += "&";
             //}
             for (String pmsSkuAttrValue : skuAttrValueList) {
-                if(!pmsSkuAttrValue.equals(delValueId)){
+                if (!pmsSkuAttrValue.equals(delValueId)) {
                     urlParam = urlParam + "&valueId=" + pmsSkuAttrValue;
                 }
             }

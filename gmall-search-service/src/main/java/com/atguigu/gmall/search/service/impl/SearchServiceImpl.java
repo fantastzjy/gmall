@@ -52,7 +52,7 @@ public class SearchServiceImpl implements SearchService {
 
             Map<String, List<String>> highlight = hit.highlight;
             //如果根据平台属性进来是不会有高亮的，这里要判断是否为空的判断
-            if(highlight!=null){
+            if (highlight != null) {
                 String skuName = highlight.get("skuName").get(0);
                 source.setSkuName(skuName);
             }
@@ -66,42 +66,42 @@ public class SearchServiceImpl implements SearchService {
 
 
     private String getSearchDsl(PmsSearchParam pmsSearchParam) {
-         String[] skuAttrValueList = pmsSearchParam.getValueId();
+        String[] skuAttrValueList = pmsSearchParam.getValueId();
         String keyword = pmsSearchParam.getKeyword();
         String catalog3Id = pmsSearchParam.getCatalog3Id();
 
         // jest的dsl工具
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-                // bool
-                BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
+        // bool
+        BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
 
-                        // filter
-                        if (StringUtils.isNotBlank(catalog3Id)) {
-                            TermQueryBuilder termQueryBuilder = new TermQueryBuilder("catalog3Id", catalog3Id);
-                            boolQueryBuilder.filter(termQueryBuilder);
-                        }
-                        if (skuAttrValueList != null) {
-                            for (String pmsSkuAttrValue : skuAttrValueList) {
-                                TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.valueId", pmsSkuAttrValue);
-                                boolQueryBuilder.filter(termQueryBuilder);
-                            }
-                        }
+        // filter
+        if (StringUtils.isNotBlank(catalog3Id)) {
+            TermQueryBuilder termQueryBuilder = new TermQueryBuilder("catalog3Id", catalog3Id);
+            boolQueryBuilder.filter(termQueryBuilder);
+        }
+        if (skuAttrValueList != null) {
+            for (String pmsSkuAttrValue : skuAttrValueList) {
+                TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.valueId", pmsSkuAttrValue);
+                boolQueryBuilder.filter(termQueryBuilder);
+            }
+        }
 
 
-                        // must
-                        if (StringUtils.isNotBlank(keyword)) {
-                            MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("skuName", keyword);
-                            boolQueryBuilder.must(matchQueryBuilder);
-                        }
+        // must
+        if (StringUtils.isNotBlank(keyword)) {
+            MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("skuName", keyword);
+            boolQueryBuilder.must(matchQueryBuilder);
+        }
 
         // query
         searchSourceBuilder.query(boolQueryBuilder);
 
-            // highlight
-            HighlightBuilder highlightBuilder = new HighlightBuilder();
-                highlightBuilder.preTags("<span style='color:red;'>");
-                highlightBuilder.field("skuName");
-                highlightBuilder.postTags("</span>");
+        // highlight
+        HighlightBuilder highlightBuilder = new HighlightBuilder();
+        highlightBuilder.preTags("<span style='color:red;'>");
+        highlightBuilder.field("skuName");
+        highlightBuilder.postTags("</span>");
         searchSourceBuilder.highlight(highlightBuilder);
 
         searchSourceBuilder.highlight(highlightBuilder);

@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class GmallSearchWebApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GmallSearchWebApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GmallSearchWebApplication.class, args);
+    }
 
 }

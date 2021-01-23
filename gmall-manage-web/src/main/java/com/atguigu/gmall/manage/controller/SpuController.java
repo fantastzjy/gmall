@@ -39,7 +39,7 @@ public class SpuController {
 
     @RequestMapping("spuSaleAttrList")
     @ResponseBody
-    public List<PmsProductSaleAttr> spuSaleAttrList(String spuId){
+    public List<PmsProductSaleAttr> spuSaleAttrList(String spuId) {
 
         List<PmsProductSaleAttr> pmsProductSaleAttrs = spuService.spuSaleAttrList(spuId);
         return pmsProductSaleAttrs;

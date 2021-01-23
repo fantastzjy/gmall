@@ -12,7 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,13 +26,32 @@ public class ItemController {
     @Reference
     SpuService spuService;
 
+    @RequestMapping("addtecher")
+    public String getSkuInfo() {
+
+        return "bookedit";
+    }
+
+    @RequestMapping("looktecher")
+    public String getSkuIfo() {
+
+        return "lookedit";
+    }
+
+    @RequestMapping("hello")
+    public String getSku() {
+
+        return "hello";
+    }
+
+
     @RequestMapping("{skuId}.html")
     //@ResponseBody
     public String getSkuInfo(@PathVariable String skuId, ModelMap map, HttpServletRequest httpServletRequest) {
         String remoteAddr = httpServletRequest.getRemoteAddr();
 
         // request.getHeader("");// nginx负载均衡
-        PmsSkuInfo pmsSkuInfo = skuService.getSkuInfoById(skuId,remoteAddr);
+        PmsSkuInfo pmsSkuInfo = skuService.getSkuInfoById(skuId, remoteAddr);
         //注意这里用的是put不是addattribute
         map.put("skuInfo", pmsSkuInfo);
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="UTF-8"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="UTF-8" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -37,13 +37,14 @@
         <a href="#"><img src="/list/image/at.jpg" alt="" width="180px" height="70px"></a>
     </div>
     <div class="header_form">
-        <input id="keyword" name="keyword" type="text" placeholder="输入搜索关键词"    th:if="${keyword}!=null" th:value="${keyword}"  />
+        <input id="keyword" name="keyword" type="text" placeholder="输入搜索关键词" th:if="${keyword}!=null"
+               th:value="${keyword}"/>
         <a href="#" onclick="searchList()">搜索</a>
     </div>
     <div class="header_ico">
         <div class="header_gw">
             <span><a href="#">我的购物车</a></span>
-            <img src="/list/image/settleup-@1x.png" />
+            <img src="/list/image/settleup-@1x.png"/>
             <span>0</span>
         </div>
         <div class="header_ko">
@@ -69,10 +70,12 @@
         <div class="GM_ipone_one a">
             筛选条件
         </div>
-<!--        面包屑-->
+        <!--        面包屑-->
         <i><img src="/list/image/right-@1x.png" alt=""></i>
         <span th:if="${keyword}!=null" th:text="'&quot;'+${keyword}+'&quot;'">&quot;检索关键词&quot;</span>
-        <a class="select-attr"   th:each="baseAttrValueSelected:${attrValueSelectedList}"    th:href="'list.html?'+${baseAttrValueSelected.urlParam}"   th:utext=" ${baseAttrValueSelected.valueName} +'<b> ✖ </b>'"  > 2G<b> ✖ </b>
+        <a class="select-attr" th:each="baseAttrValueSelected:${attrValueSelectedList}"
+           th:href="'list.html?'+${baseAttrValueSelected.urlParam}"
+           th:utext=" ${baseAttrValueSelected.valueName} +'<b> ✖ </b>'"> 2G<b> ✖ </b>
         </a>
         <!-- <a class="select-attr"   href="#"      > 屏幕尺寸:5.1-5.5英寸<b> ✖ </b>
         </a>-->
@@ -91,13 +94,15 @@
             </div>
             <div class="GM_nav_logo">
                 <!-- 属性值展示-->
-                <div class="GM_pre"  th:each="attrInfo:${attrList}">
+                <div class="GM_pre" th:each="attrInfo:${attrList}">
                     <div class="sl_key">
                         <span th:text="${attrInfo.attrName}+':'">属性：</span>
                     </div>
                     <div class="sl_value">
                         <ul>
-                            <li  th:each="attrValue:${attrInfo.attrValueList}"><a th:href="'/list.html?'+${urlParam}+'&valueId='+${attrValue.id}"  th:text="${attrValue.valueName}">属性值</a></li>
+                            <li th:each="attrValue:${attrInfo.attrValueList}"><a
+                                    th:href="'/list.html?'+${urlParam}+'&valueId='+${attrValue.id}"
+                                    th:text="${attrValue.valueName}">属性值</a></li>
                         </ul>
                     </div>
                 </div>
@@ -118,7 +123,8 @@
                         <div class="mc">
                             <ul>
                                 <li>
-                                    <a href="#" title="vivo X9s 全网通 4GB+64GB 磨砂黑 移动联通电信4G手机 双卡双待"><img src="/img/59bf3c47n91d65c73.jpg" alt=""></a>
+                                    <a href="#" title="vivo X9s 全网通 4GB+64GB 磨砂黑 移动联通电信4G手机 双卡双待"><img
+                                            src="/img/59bf3c47n91d65c73.jpg" alt=""></a>
                                     <a href="#" title="【预约版】华为 HUAWEI 畅享7S 全面屏双摄 4GB +64GB 黑色 移动联通电信4G手机 双卡双待">
                                         <em>华为 HUAWEI nova 2S 全面屏四摄 6GB +64GB 曜石黑 移动联通电信4G手机 双卡双待</em>
                                     </a>
@@ -137,7 +143,8 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="#" title="vivo X9s 全网通 4GB+64GB 磨砂黑 移动联通电信4G手机 双卡双待"><img src="/img/59bf3c47n91d65c73.jpg" alt=""></a>
+                                    <a href="#" title="vivo X9s 全网通 4GB+64GB 磨砂黑 移动联通电信4G手机 双卡双待"><img
+                                            src="/img/59bf3c47n91d65c73.jpg" alt=""></a>
                                     <a href="#" title="【预约版】华为 HUAWEI 畅享7S 全面屏双摄 4GB +64GB 黑色 移动联通电信4G手机 双卡双待">
                                         <em>华为 HUAWEI nova 2S 全面屏四摄 6GB +64GB 曜石黑 移动联通电信4G手机 双卡双待</em>
                                     </a>
@@ -156,7 +163,8 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="#" title="vivo X9s 全网通 4GB+64GB 磨砂黑 移动联通电信4G手机 双卡双待"><img src="/img/593ba628n8794c6a6.jpg" alt=""></a>
+                                    <a href="#" title="vivo X9s 全网通 4GB+64GB 磨砂黑 移动联通电信4G手机 双卡双待"><img
+                                            src="/img/593ba628n8794c6a6.jpg" alt=""></a>
                                     <a href="#" title="【预约版】华为 HUAWEI 畅享7S 全面屏双摄 4GB +64GB 黑色 移动联通电信4G手机 双卡双待">
                                         <em>诺基亚 7 (Nokia 7) 4GB+64GB 黑色 全网通 双卡双待 移动联通电信4G手机</em>
                                     </a>
@@ -196,10 +204,11 @@
 
                     <!--排序内容-->
                     <div class="rig_tab" style="width:940px">
-                        <div style="width:215px" th:each="skuLsInfo:${skuLsInfoList}" >
+                        <div style="width:215px" th:each="skuLsInfo:${skuLsInfoList}">
                             <p class="da">
                                 <a href="#" th:onclick="'javascript:item(\''+${skuLsInfo.id}+'\')'">
-                                    <img th:src="${skuLsInfo.skuDefaultImg}"   src="/list/img/57d0d400nfd249af4.jpg" class="dim">
+                                    <img th:src="${skuLsInfo.skuDefaultImg}" src="/list/img/57d0d400nfd249af4.jpg"
+                                         class="dim">
                                 </a>
                             </p>
 
@@ -207,13 +216,14 @@
                                 <span th:text="'￥'+${#numbers.formatDecimal(skuLsInfo.price,1,2)}">¥5199.00</span>
                             </p>
 
-                            <a href="#" title=""   th:onclick="'javascript:item(\''+${skuLsInfo.id}+'\')'" class="tab_JE" th:utext="${skuLsInfo.skuName}" >
+                            <a href="#" title="" th:onclick="'javascript:item(\''+${skuLsInfo.id}+'\')'" class="tab_JE"
+                               th:utext="${skuLsInfo.skuName}">
                                 Apple iPhone 7 Plus (A1661) 32G 黑色 移动联通电信4G手机
                             </a>
                         </div>
                         <div style="width:215px">
                             <p class="da">
-                                <a href="#" >
+                                <a href="#">
                                     <img src="/list/img/57d0d400nfd249af4.jpg" class="dim">
                                 </a>
                             </p>
@@ -228,7 +238,7 @@
                         </div>
                         <div style="width:215px">
                             <p class="da">
-                                <a href="#" >
+                                <a href="#">
                                     <img src="/list/img/57d0d400nfd249af4.jpg" class="dim">
                                 </a>
                             </p>
@@ -243,7 +253,7 @@
                         </div>
                         <div style="width:215px">
                             <p class="da">
-                                <a href="#" >
+                                <a href="#">
                                     <img src="/list/img/57d0d400nfd249af4.jpg" class="dim">
                                 </a>
                             </p>
@@ -259,7 +269,7 @@
 
                         <div style="width:215px">
                             <p class="da">
-                                <a href="#" >
+                                <a href="#">
                                     <img src="/list/img/58d1d078N20e18b62.jpg" class="dim">
                                 </a>
                             </p>
@@ -274,7 +284,7 @@
                         </div>
                         <div style="width:215px">
                             <p class="da">
-                                <a href="#" >
+                                <a href="#">
                                     <img src="/list/img/58d1d078N20e18b62.jpg" class="dim">
                                 </a>
                             </p>
@@ -289,7 +299,7 @@
                         </div>
                         <div style="width:215px">
                             <p class="da">
-                                <a href="#" >
+                                <a href="#">
                                     <img src="/list/img/58d1d078N20e18b62.jpg" class="dim">
                                 </a>
                             </p>
@@ -304,7 +314,7 @@
                         </div>
                         <div style="width:215px">
                             <p class="da">
-                                <a href="#" >
+                                <a href="#">
                                     <img src="/list/img/58d1d078N20e18b62.jpg" class="dim">
                                 </a>
                             </p>
@@ -359,19 +369,19 @@
         <ul>
             <li>
 
-                <h3> </h3>
+                <h3></h3>
             </li>
             <li>
 
-                <h3> </h3>
+                <h3></h3>
             </li>
             <li>
 
-                <h3> </h3>
+                <h3></h3>
             </li>
             <li>
 
-                <h3> </h3>
+                <h3></h3>
             </li>
         </ul>
     </div>
@@ -401,89 +411,87 @@
 <script src="/list/js/index.js"></script>
 <script language="JavaScript">
     function item(skuid) {
-        console.log("skuid:"+skuid);
-        window.location.href="http://item.gmall.com:8074/"+skuid+".html";
+        console.log("skuid:" + skuid);
+        window.location.href = "http://item.gmall.com:8074/" + skuid + ".html";
     }
 
-    function searchList(){
+    function searchList() {
         var keyword = $("#keyword").val();
-        window.location.href="/list.html?keyword="+keyword;
+        window.location.href = "/list.html?keyword=" + keyword;
     }
 
 
-
-    $(".sl_ext a:nth-child(1)").hover(function(){
-        $(this).children("b").stop(true).animate({top:"3px"},50);
-        $(this).children("i").stop(true).animate({top:"-23px"},50)
-    },function(){
-        $(this).children("b").stop(true).animate({top:"24px"},50);
-        $(this).children("i").stop(true).animate({top:"3px"},50)
+    $(".sl_ext a:nth-child(1)").hover(function () {
+        $(this).children("b").stop(true).animate({top: "3px"}, 50);
+        $(this).children("i").stop(true).animate({top: "-23px"}, 50)
+    }, function () {
+        $(this).children("b").stop(true).animate({top: "24px"}, 50);
+        $(this).children("i").stop(true).animate({top: "3px"}, 50)
     });
-    $(".sl_ext a:nth-child(2)").hover(function(){
-        $(this).children("span").stop(true).animate({top:"-1px"},100);
-        $(this).children("i").stop(true).animate({top:"-14px"},100).css({display:"none"})
-    },function(){
-        $(this).children("span").stop(true).animate({top:"14px"},100);
-        $(this).children("i").stop(true).animate({top:"-1px"},100).css({display:"block"})
+    $(".sl_ext a:nth-child(2)").hover(function () {
+        $(this).children("span").stop(true).animate({top: "-1px"}, 100);
+        $(this).children("i").stop(true).animate({top: "-14px"}, 100).css({display: "none"})
+    }, function () {
+        $(this).children("span").stop(true).animate({top: "14px"}, 100);
+        $(this).children("i").stop(true).animate({top: "-1px"}, 100).css({display: "block"})
     });
-    $('.tab_im img').hover(function(){
-        var a=$(this).prop('src');
-        var index=$(this).parents('li').index();
-        $(this).parents('li').css('border','2px solid red').siblings('li').css('border','1px solid #ccc');
-        $(this).parents('ul').prev().find('img').prop('src',a);
-        $(this).parents('ul').siblings('.tab_JE').find('a').eq(index).css('display','block').siblings('a').css('display','none');
-        $(this).parents('ul').siblings('.tab_R').find('span').eq(index).css('display','block').siblings('span').css('display','none')
-    });
-
-    $(".GM_ipone_one").hover(function(){
-        $(this).children("div").css({display:"block"})
-    },function(){
-        $(this).children("div").css({display:"none"})
+    $('.tab_im img').hover(function () {
+        var a = $(this).prop('src');
+        var index = $(this).parents('li').index();
+        $(this).parents('li').css('border', '2px solid red').siblings('li').css('border', '1px solid #ccc');
+        $(this).parents('ul').prev().find('img').prop('src', a);
+        $(this).parents('ul').siblings('.tab_JE').find('a').eq(index).css('display', 'block').siblings('a').css('display', 'none');
+        $(this).parents('ul').siblings('.tab_R').find('span').eq(index).css('display', 'block').siblings('span').css('display', 'none')
     });
 
-    $("#tab>li").click(function() {
+    $(".GM_ipone_one").hover(function () {
+        $(this).children("div").css({display: "block"})
+    }, function () {
+        $(this).children("div").css({display: "none"})
+    });
+
+    $("#tab>li").click(function () {
         var i = $(this).index();
         $("#container>div").hide().eq(i).show()
     });
-    $(".dizhi_show").hover(function(){
-        $(".dizhi_con").css({display:"block"})
-    },function(){
-        $(".dizhi_con").css({display:"none"})
+    $(".dizhi_show").hover(function () {
+        $(".dizhi_con").css({display: "block"})
+    }, function () {
+        $(".dizhi_con").css({display: "none"})
     });
-    $(".dizhi_con").hover(function(){
-        $(this).css({display:"block"})
-    },function(){
-        $(this).css({display:"none"})
+    $(".dizhi_con").hover(function () {
+        $(this).css({display: "block"})
+    }, function () {
+        $(this).css({display: "none"})
     });
     //显示隐藏
     // var $li = $(".GM_nav_logo>div:gt(3)").hide();    属性为下拉框隐藏一部分，但是做的有问题就让他全都显示
     var $li = $(".GM_nav_logo>div:gt(3)").show();
-    $('.GM_show span').click(function(){
-        if($li.is(':hidden')){
+    $('.GM_show span').click(function () {
+        if ($li.is(':hidden')) {
             $li.show();
-            $(this).css({width:"86px"}).text('收起 ^');
-        }else{
+            $(this).css({width: "86px"}).text('收起 ^');
+        } else {
             $li.hide();
-            $('.GM_show span').css({width:"291px"}).text('更多选项（ CPU核数、网络、机身颜色 等）');
+            $('.GM_show span').css({width: "291px"}).text('更多选项（ CPU核数、网络、机身颜色 等）');
         }
         return false;
     });
 
 
-
-    $(".rig_tab>div").hover(function(){
+    $(".rig_tab>div").hover(function () {
         var i = $(this).index();
-        $(this).find('.ico').css({display:'block'}).stop(true).animate({top:"190px"},300)
-    },function(){
+        $(this).find('.ico').css({display: 'block'}).stop(true).animate({top: "190px"}, 300)
+    }, function () {
         var i = $(this).index();
-        $(this).find('.ico').css({display:'none'}).stop(true).animate({top:"230px"})
+        $(this).find('.ico').css({display: 'none'}).stop(true).animate({top: "230px"})
     });
 
-    $('.header_main_left>ul>li').hover(function() {
+    $('.header_main_left>ul>li').hover(function () {
         $(this).css({
             background: "#f0f0f0"
         }).find('.header_main_left_main').stop(true).fadeIn(300)
-    }, function() {
+    }, function () {
         $(this).css({
             background: "#fff"
         }).find(".header_main_left_a").css({
@@ -491,31 +499,31 @@
         });
         $(this).find('.header_main_left_main').stop(true).fadeOut(100)
     });
-    $(".header_sj a").hover(function() {
+    $(".header_sj a").hover(function () {
         $(this).css({
             background: "#444"
         })
-    }, function() {
+    }, function () {
         $(this).css({
             background: "#6e6568"
         })
     });
 
 
-    $(".nav_li1 a").hover(function(){
+    $(".nav_li1 a").hover(function () {
         $(".header_main_left").stop(true).fadeIn()
-    },function(){
+    }, function () {
         $(".header_main_left").stop(true).fadeOut()
     });
-    $(".header_main_left").hover(function(){
+    $(".header_main_left").hover(function () {
         $(this).stop(true).fadeIn()
-    },function(){
+    }, function () {
         $(this).stop(true).fadeOut()
     });
 
 
     //右侧侧边栏
-    $(".header_bar_box ul li").hover(function() {
+    $(".header_bar_box ul li").hover(function () {
         $(this).css({
             background: "#7A6E6E"
         }).children(".div").css({
@@ -523,7 +531,7 @@
         }).stop(true).animate({
             left: "-60px"
         }, 300)
-    }, function() {
+    }, function () {
         $(this).css({
             background: "#7A6E6E"
         }).children(".div").css({
@@ -535,16 +543,16 @@
 
 
     //底部
-    $(".footer_foot .p1 a").hover(function(){
-        $(this).css("color","#D70B1C")
-    },function(){
-        $(this).css("color","#727272")
+    $(".footer_foot .p1 a").hover(function () {
+        $(this).css("color", "#D70B1C")
+    }, function () {
+        $(this).css("color", "#727272")
     });
 
-    $(".footer .footer_center ol li a").hover(function(){
-        $(this).css("color","#D70B1C")
-    },function(){
-        $(this).css("color","#727272")
+    $(".footer .footer_center ol li a").hover(function () {
+        $(this).css("color", "#D70B1C")
+    }, function () {
+        $(this).css("color", "#727272")
     })
 </script>
 </body>

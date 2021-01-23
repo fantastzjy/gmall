@@ -22,7 +22,7 @@ public class RedissonController {
 
     @RequestMapping("testRedisson")
     @ResponseBody
-    public String testRedisson(){
+    public String testRedisson() {
         Jedis jedis = redisUtil.getJedis();
         RLock lock = redissonClient.getLock("lock");// 声明锁
         lock.lock();//上锁
@@ -33,7 +33,7 @@ public class RedissonController {
             }
             System.out.println("->" + v);
             jedis.set("k", (Integer.parseInt(v) + 1) + "");
-        }finally {
+        } finally {
             jedis.close();
             lock.unlock();// 解锁
         }

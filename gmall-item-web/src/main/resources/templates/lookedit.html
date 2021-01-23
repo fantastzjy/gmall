@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>添加老师信息</title>
+    <link type="text/css" rel="stylesheet" href="../../static/css/style.css">
+    <style type="text/css">
+        h1 {
+            text-align: center;
+            margin-top: 200px;
+        }
+
+        h1 a {
+            color: red;
+        }
+
+        input {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+
+    <div>
+        <a href="book_manager.html">查看老师信息</a>
+        <a href="book_manager.html">添加老师信息</a>
+        <a href="order_manager.html">修改老师信息</a>
+        <a href="../../index.html">删除老师信息</a>
+    </div>
+</div>
+
+<div id="main">
+    <form action="book_manager.html">
+        您查询的信息如下工友一人
+        <table>
+            <tr>
+                <td>工号</td>
+                <td>姓名</td>
+                <td>性别</td>
+                <td>年龄</td>
+                <td>部门</td>
+                <td colspan="2">操作</td>
+            </tr>
+            <tr>
+                <td><input name="book_name" type="text" value="541813460244"/></td>
+                <td><input name="book_price" type="text" value="张家应"/></td>
+                <td><input name="book_author" type="text" value="男"/></td>
+                <td><input name="book_sales" type="text" value="22"/></td>
+                <td><input name="book_stock" type="text" value="软件工程1802"/></td>
+                <td><input type="submit" value="提交"/></td>
+                <td><input type="submit" value="重置"/></td>
+            </tr>
+        </table>
+    </form>
+
+
+</div>
+
+
+</body>
+</html>

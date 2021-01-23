@@ -6,12 +6,12 @@
 
     <select id="selectSkuSaleAttrValueListBySpu" resultMap="selectSkuSaleAttrValueListBySpuMap">
         SELECT
-            si.*,ssav.*,si.id as si_id ,ssav.id as ssav_id
+        si.*,ssav.*,si.id as si_id ,ssav.id as ssav_id
         FROM
-            pms_sku_info si,
-            pms_sku_sale_attr_value ssav
+        pms_sku_info si,
+        pms_sku_sale_attr_value ssav
         WHERE
-            si.product_id = #{productId}
+        si.product_id = #{productId}
         AND si.id = ssav.sku_id
     </select>
 

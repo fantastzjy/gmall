@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.awt.*;
 import java.io.IOException;
 
 @RunWith(SpringRunner.class)
@@ -33,7 +34,7 @@ public class GmallManageWebApplicationTests {
         // 通过tracker获得一个Storage链接客户端
         StorageClient storageClient = new StorageClient(trackerServer, null);
 
-        String[] uploadInfos = storageClient.upload_file("d:/当幸福来敲门.rmvb", "rmvb", null);
+        String[] uploadInfos = storageClient.upload_file("d:/Desktop/分类列表模板 .xls", "xls", null);
         //http://47.99.111.209//group1/M00/00/00/rBktxF-2kgCALu3sAACwyLmgHuw274_big.jpg
         //http://47.99.111.209/group1/M00/00/00/rBktxF-3MeWAc3bEBTdNhiVjisA115.mp4
         //http://47.99.111.209/group1/M00/00/00/rBktxF-3NV6AK_FKUkZVLuBX1Xs30.rmvb
