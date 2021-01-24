@@ -4,12 +4,10 @@ import com.atguigu.gmall.util.RedisUtil;
 import org.redisson.api.RSemaphore;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Response;
 import redis.clients.jedis.Transaction;
 
 import java.util.List;
@@ -24,7 +22,7 @@ public class SecKillController {
     RedissonClient redissonClient;
 
     /***
-     * 先到先得式秒杀
+     * 先到先得式秒杀  拼手速
      * @return
      */
     @RequestMapping("secKill")

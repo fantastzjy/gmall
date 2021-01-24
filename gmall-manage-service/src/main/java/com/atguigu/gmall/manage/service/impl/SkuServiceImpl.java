@@ -86,7 +86,7 @@ public class SkuServiceImpl implements SkuService {
 
     @Override
     public PmsSkuInfo getSkuInfoById(String skuId, String ip) {
-        System.out.println("ip为" + ip + "的同学:" + Thread.currentThread().getName() + "进入的商品详情的请求");
+        System.out.println("ip为" + ip + "的用户:" + Thread.currentThread().getName() + "进入的商品详情的请求");
         PmsSkuInfo pmsSkuInfo = new PmsSkuInfo();
         //连接缓存
         Jedis jedis = redisUtil.getJedis();
@@ -96,11 +96,11 @@ public class SkuServiceImpl implements SkuService {
 
         if (StringUtils.isNotBlank(skuJson)) {
             //if(skuJson!=null&&!skuJson.equals("")
-            System.out.println("ip为" + ip + "的同学:" + Thread.currentThread().getName() + "从缓存中获取商品详情");
+            System.out.println("ip为" + ip + "的用户:" + Thread.currentThread().getName() + "从缓存中获取商品详情");
             pmsSkuInfo = JSON.parseObject(skuJson, PmsSkuInfo.class);
         } else {
             // 如果缓存中没有，查询mysql
-            System.out.println("ip为" + ip + "的同学:" + Thread.currentThread().getName() + "发现缓存中没有，申请缓存的分布式锁：" + "sku:" + skuId + ":lock");
+            System.out.println("ip为" + ip + "的用户:" + Thread.currentThread().getName() + "发现缓存中没有，申请缓存的分布式锁：" + "sku:" + skuId + ":lock");
 
             //查询数据库
             //加锁
@@ -108,22 +108,24 @@ public class SkuServiceImpl implements SkuService {
             String OK = jedis.set("sku:" + skuId + ":lock", token, "nx", "px", 10 * 1000);
             if (StringUtils.isNotBlank(OK) && "OK".equals(OK)) {
                 // 设置成功，有权在10秒的过期时间内访问数据库
-                System.out.println("ip为" + ip + "的同学:" + Thread.currentThread().getName() + "有权在10秒的过期时间内访问数据库：" + "sku:" + skuId + ":lock");
+                System.out.println("ip为" + ip + "的用户:" + Thread.currentThread().getName() + "有权在10秒的过期时间内访问数据库：" + "sku:" + skuId + ":lock");
                 pmsSkuInfo = getSkuByIdFromDb(skuId);
 
                 if (pmsSkuInfo != null) {
                     // mysql查询结果存入redis
                     jedis.set(skuKey, JSON.toJSONString(pmsSkuInfo));
-                } else {   //注意这里  忘写下面的了。。。。。
+                } else {
                     // 数据库中不存在该sku
-                    // 为了防止缓存穿透将，null或者空字符串值设置给redis
 
-                    // 这里为什么把空字符串转化成json格式？？？？   还有这里是 jedis.setex
+                    // 为了防止缓存穿透将null或者空字符串值设置给redis
+                    // 这里把空字符串转化成json格式 为了统一返回结果 其他的都是json格式的
+                    // jedis.setex  设置访问过期时间 尝试在过段时间在尝试是否有了查询的数据
                     jedis.setex(skuKey, 60 * 3, JSON.toJSONString(""));
+
                 }
 
                 // 在访问mysql后，将mysql的分布锁释放
-                System.out.println("ip为" + ip + "的同学:" + Thread.currentThread().getName() + "使用完毕，将锁归还：" + "sku:" + skuId + ":lock");
+                System.out.println("ip为" + ip + "的用户:" + Thread.currentThread().getName() + "使用完毕，将锁归还：" + "sku:" + skuId + ":lock");
 
                 String lockToken = jedis.get("sku:" + skuId + ":lock");
                 if (StringUtils.isNotBlank(lockToken) && token.equals(lockToken)) {
@@ -133,8 +135,11 @@ public class SkuServiceImpl implements SkuService {
                 }
             } else {
                 // 设置失败，自旋（该线程在睡眠几秒后，重新尝试访问本方法）
-                System.out.println("ip为" + ip + "的同学:" + Thread.currentThread().getName() + "没有拿到锁，开始自旋");
+                System.out.println("ip为" + ip + "的用户:" + Thread.currentThread().getName() + "没有拿到锁，开始自旋");
 
+                //为什么这样写？
+                //在前面写  return  这样才能保证是同一条线程在调用getSkuInfoById方法，这样才能最终返回结果
+                //如果直接就是    getSkuInfoById(skuId, ip);    这条线程就会变成“孤儿”线程  只是调用了，连返回值都没有接收
                 return getSkuInfoById(skuId, ip);
             }
 
