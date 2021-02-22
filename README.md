@@ -10,8 +10,10 @@
 **gmall-redission-test   8075**<br/>
 **gmall-search-service   8076**<br/>
 **gmall-search-web       8077**<br/>
-**gmall-secKill          8001**<br/>
+**gmall-cart-service     8078**<br/>
+**gmall-cart-web         8079**<br/>
 
+**gmall-secKill          8001**<br/>
 ```
 
 对应5.24
@@ -144,3 +146,10 @@ class UserServiceImpl implements UserService
             <result column="sav_id" property="id"></result>
         </collection>
     </resultMap>
+
+
+
+
+关于请求和转发
+如果直接return“”  是直接转发的意思   读的操作 允许反复刷新 没有数据写入
+加上redirect才是重定向   法昂如购物车是写的操作 改变了数据库中的数据 不能反复写入

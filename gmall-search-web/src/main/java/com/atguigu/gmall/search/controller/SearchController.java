@@ -1,6 +1,7 @@
 package com.atguigu.gmall.search.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.atguigu.gmall.annotations.LoginRequired;
 import com.atguigu.gmall.bean.*;
 import com.atguigu.gmall.service.AttrService;
 import com.atguigu.gmall.service.SearchService;
@@ -23,14 +24,13 @@ public class SearchController {
     AttrService attrService;
 
     @RequestMapping("list.html")
-    public String list(PmsSearchParam pmsSearchParam, ModelMap modelMap) {// 三级分类id、关键字、
+    public String list(PmsSearchParam pmsSearchParam, ModelMap modelMap) {
 
         // 调用搜索服务，返回搜索结果
         List<PmsSearchSkuInfo> pmsSearchSkuInfos = searchService.list(pmsSearchParam);
         modelMap.put("skuLsInfoList", pmsSearchSkuInfos);
 
         // 抽取检索结果锁包含的平台属性集合
-
         HashSet<String> valueIdSet = new HashSet<>();
         for (PmsSearchSkuInfo pmsSearchSkuInfo : pmsSearchSkuInfos) {
             List<PmsSkuAttrValue> skuAttrValueList = pmsSearchSkuInfo.getSkuAttrValueList();
@@ -47,20 +47,29 @@ public class SearchController {
 
 
         //合并后的制作面包屑和删除属性
+
         // 对平台属性集合进一步处理，去掉当前条件中valueId所在的属性组
         //将所在组的所有属性值全去除掉
         //制作面包屑
         ArrayList<PmsSearchCrumb> pmsSearchCrumbs = new ArrayList<>();
         String[] delValueIds = pmsSearchParam.getValueId();
+        //只有在判断平台属性列表中有值的情况下才会生成面包屑和平台属性列表
         if (delValueIds != null) {
+            //将这个循环放在外面是因为正好这个循环的次数就是面包屑的个数
             for (String delValueId : delValueIds) {
+                //注意这个细节不能在循环外面
+                // 因为每次循环都要将pmsBaseAttrInfos集合重新扫描一遍
+                // 如果放在循环外面扫描一遍之后迭代器里面就没有东西了
+                //迭代器原理 ：即使每次迭代向后移动   到最后不会再回到前面，所以将迭代器放在循环里面
+                Iterator<PmsBaseAttrInfo> iterator = pmsBaseAttrInfos.iterator();
 
                 PmsSearchCrumb pmsSearchCrumb = new PmsSearchCrumb();
                 pmsSearchCrumb.setValueId(delValueId);
                 String urlParam = getUrlParamForCrumb(pmsSearchParam, delValueId);
                 pmsSearchCrumb.setUrlParam(urlParam);
 
-                Iterator<PmsBaseAttrInfo> iterator = pmsBaseAttrInfos.iterator();
+                //循环删除集合（本质数组）中的东西一定不能用remove删除要用iterator迭代器进行删除
+                //因为 用remove删除后集合（数组）的索引值会重新改变，最后会出现下标越界
                 while (iterator.hasNext()) {
                     PmsBaseAttrInfo pmsBaseAttrInfo = iterator.next();
                     List<PmsBaseAttrValue> attrValueList = pmsBaseAttrInfo.getAttrValueList();
@@ -125,9 +134,7 @@ public class SearchController {
          }
 
          modelMap.put("attrValueSelectedList", pmsSearchCrumbs);
-         *
-         *
-         *
+
          *
          *
          */
@@ -184,13 +191,14 @@ public class SearchController {
     }
 
 
-    //这里可以和上面的方法合并写成可变形参
+    //这里可以和上面的方法getUrlParamForCrumb合并写成可变形参
     //private String getUrlParam(PmsSearchParam pmsSearchParam,String...delValueId) {
     private String getUrlParam(PmsSearchParam pmsSearchParam) {
-
+        //catalog3Id 和 Keyword 是必有一项的  因为只能通过这两个入口才能进来
         String catalog3Id = pmsSearchParam.getCatalog3Id();
         String keyword = pmsSearchParam.getKeyword();
         String[] skuAttrValueList = pmsSearchParam.getValueId();
+
         String urlParam = "";
 
         if (StringUtils.isNotBlank(keyword)) {
@@ -221,7 +229,9 @@ public class SearchController {
         return urlParam;
     }
 
+    //进入首页
     @RequestMapping("index")
+    @LoginRequired(loginSuccess = false)
     public String index() {
         return "index";
     }

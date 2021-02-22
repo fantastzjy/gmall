@@ -34,10 +34,11 @@ public class GmallManageWebApplicationTests {
         // 通过tracker获得一个Storage链接客户端
         StorageClient storageClient = new StorageClient(trackerServer, null);
 
-        String[] uploadInfos = storageClient.upload_file("d:/Desktop/分类列表模板 .xls", "xls", null);
+        String[] uploadInfos = storageClient.upload_file("d:/Desktop/default1.jpg", "jpg", null);
         //http://47.99.111.209//group1/M00/00/00/rBktxF-2kgCALu3sAACwyLmgHuw274_big.jpg
         //http://47.99.111.209/group1/M00/00/00/rBktxF-3MeWAc3bEBTdNhiVjisA115.mp4
         //http://47.99.111.209/group1/M00/00/00/rBktxF-3NV6AK_FKUkZVLuBX1Xs30.rmvb
+        //http://47.99.111.209/group1/M00/00/00/rBktxGAgr2yAB4ESAABlKLn3G2Y587.jpg
         String url = "http://47.99.111.209";
 
         for (String uploadInfo : uploadInfos) {
