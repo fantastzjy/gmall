@@ -12,6 +12,11 @@
 **gmall-search-web       8077**<br/>
 **gmall-cart-service     8078**<br/>
 **gmall-cart-web         8079**<br/>
+**gmall-passport-web     8081**<br/>
+**gmall-order-service    8083**<br/>
+**gmall-order-web        8082**<br/>
+**gmall-payment          8084**<br/>
+**gware-manage           8085**<br/>
 
 **gmall-secKill          8001**<br/>
 ```
