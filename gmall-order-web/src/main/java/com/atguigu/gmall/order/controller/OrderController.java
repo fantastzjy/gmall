@@ -160,6 +160,7 @@ public class OrderController {
                 OmsOrderItem omsOrderItem = new OmsOrderItem();
                 omsOrderItem.setProductName(omsCartItem.getProductName());
                 omsOrderItem.setProductPic(omsCartItem.getProductPic());
+                omsOrderItem.setProductQuantity(omsCartItem.getQuantity());
                 omsOrderItems.add(omsOrderItem);
             }
         }

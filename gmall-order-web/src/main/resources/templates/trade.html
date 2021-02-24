@@ -90,9 +90,9 @@
         <div class="yun1" th:each="omsOrderItem:${omsOrderItems}">
             <img th:src="${omsOrderItem.productPic}" class="yun"/>
             <div class="mi">
-                <div><p style="width: 500px;" th:text="${omsOrderItem.productName}">商品名称111111111111 </p> <span
+                <div><p style="width: 500px;" th:text="${omsOrderItem.productName}">商品名称111 </p> <span
                         style="float: right"> <span align="center" style="color: red">   </span> <span
-                        th:text="'X '+${omsOrderItem.productName}+' X 1'">  </span> <span>有货</span>  <span>无货</span>  </span>
+                        th:text="${omsOrderItem.productName}+' X '+${omsOrderItem.productQuantity}">  </span> <span>有货</span>  <span>无货</span>  </span>
                 </div>
 
             </div>
@@ -167,10 +167,11 @@
             $("#deliveryAddress").val($("input[type='radio']:checked").next().next().text());
             $("#paymentWay").val("ONLINE");
             $("#orderComment").val($("#orderCommentPage").val());
-            console.log($("#orderForm").html());
+            // console.log($("#orderForm").html());
             $("#orderForm").submit();
 
         });
+
 
 
         $('.header-right li:nth-of-type(6)').hover(function () {
