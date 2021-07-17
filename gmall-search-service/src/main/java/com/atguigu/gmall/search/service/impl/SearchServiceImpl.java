@@ -3,9 +3,12 @@ package com.atguigu.gmall.search.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.gmall.bean.PmsSearchParam;
 import com.atguigu.gmall.bean.PmsSearchSkuInfo;
-import com.atguigu.gmall.bean.PmsSkuAttrValue;
+
+import com.atguigu.gmall.bean.PmsSkuInfo;
 import com.atguigu.gmall.service.SearchService;
+import com.atguigu.gmall.service.SkuService;
 import io.searchbox.client.JestClient;
+import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +18,7 @@ import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortOrder;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
@@ -42,6 +46,7 @@ public class SearchServiceImpl implements SearchService {
         SearchResult execute = null;
         try {
             execute = jestClient.execute(search);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,6 +68,8 @@ public class SearchServiceImpl implements SearchService {
         //System.out.println(pmsSearchSkuInfos.size());
         return pmsSearchSkuInfos;
     }
+
+
 
 
     private String getSearchDsl(PmsSearchParam pmsSearchParam) {
@@ -115,4 +122,6 @@ public class SearchServiceImpl implements SearchService {
         return searchSourceBuilder.toString();
 
     }
+
+
 }

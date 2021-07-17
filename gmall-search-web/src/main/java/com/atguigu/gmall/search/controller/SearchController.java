@@ -5,7 +5,9 @@ import com.atguigu.gmall.annotations.LoginRequired;
 import com.atguigu.gmall.bean.*;
 import com.atguigu.gmall.service.AttrService;
 import com.atguigu.gmall.service.SearchService;
+import com.atguigu.gmall.service.SkuService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -231,4 +233,6 @@ public class SearchController {
     public String index() {
         return "index";
     }
+
+
 }

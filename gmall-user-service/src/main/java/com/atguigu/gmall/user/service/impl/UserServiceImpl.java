@@ -61,6 +61,7 @@ public class UserServiceImpl implements UserService {
 
                 //密码正确
                 if (StringUtils.isNotBlank(umsMemberStr)) {
+                    //com.alibaba.fastjson.JSON;
                     UmsMember umsMemberFromCache = JSON.parseObject(umsMemberStr, UmsMember.class);
                     return umsMemberFromCache;
                 }
@@ -81,9 +82,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUserToken(String token, String memberId) {
         Jedis jedis = redisUtil.getJedis();
-
         jedis.setex("user:" + memberId + ":token", 60 * 60 * 2, token);
-
         jedis.close();
     }
 

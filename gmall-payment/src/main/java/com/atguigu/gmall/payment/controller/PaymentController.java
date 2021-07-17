@@ -38,6 +38,7 @@ public class PaymentController {
     @Reference
     OrderService orderService;
 
+    //阿里支付  假接口   提交支付界面
     @RequestMapping("alipay/submit")
     @LoginRequired(loginSuccess = true)
     @ResponseBody
@@ -86,7 +87,7 @@ public class PaymentController {
         //return form;
 
 
-        //合并aliPayCallBackReturn
+        //因为是假的没法自动回调，所以合并下面的aliPayCallBackReturn
         // 回调请求中获取支付宝参数
         //String sign = request.getParameter("sign");
         String sign = "1";
@@ -120,6 +121,7 @@ public class PaymentController {
     }
 
 
+    //支付完成回调函数
     @RequestMapping("alipay/callback/return")
     @LoginRequired(loginSuccess = true)
     public String aliPayCallBackReturn(HttpServletRequest request, ModelMap modelMap) {
@@ -150,6 +152,8 @@ public class PaymentController {
         return "finish";
     }
 
+
+    //阿里支付接口  真
     @RequestMapping("alipay/submit1")
     @LoginRequired(loginSuccess = true)
     @ResponseBody
@@ -198,6 +202,8 @@ public class PaymentController {
         return form;
     }
 
+
+    //进入支付页面
     @RequestMapping("index")
     @LoginRequired(loginSuccess = true)
     public String index(String outTradeNo, BigDecimal totalAmount, HttpServletRequest request, ModelMap modelMap) {
@@ -211,6 +217,8 @@ public class PaymentController {
         return "index";
     }
 
+
+    //微信支付接口
     @RequestMapping("mx/submit")
     @LoginRequired(loginSuccess = true)
     public String mx(String outTradeNo, BigDecimal totalAmount, HttpServletRequest request, ModelMap modelMap) {

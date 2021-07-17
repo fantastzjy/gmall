@@ -1,11 +1,6 @@
 package com.atguigu.gmall.payment.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.alibaba.fastjson.JSON;
-import com.alipay.api.AlipayApiException;
-import com.alipay.api.AlipayClient;
-import com.alipay.api.request.AlipayTradeQueryRequest;
-import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.atguigu.gmall.bean.PaymentInfo;
 import com.atguigu.gmall.mq.ActiveMQUtil;
 import com.atguigu.gmall.payment.mapper.PaymentInfoMapper;
@@ -66,7 +61,7 @@ public class PaymentServiceImpl implements PaymentService {
 
             try {
                 paymentInfoMapper.updateByExampleSelective(paymentInfo, e);
-                // 支付成功后，引起的系统服务-》订单服务的更新-》库存服务-》物流服务
+                // 支付成功后，引起的系统服务：订单服务的更新-》库存服务-》物流服务
                 // 调用mq发送支付成功的消息
                 Queue payhment_success_queue = session.createQueue("PAYHMENT_SUCCESS_QUEUE");
                 MessageProducer producer = session.createProducer(payhment_success_queue);

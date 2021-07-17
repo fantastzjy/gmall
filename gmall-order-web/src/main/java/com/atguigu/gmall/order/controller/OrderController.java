@@ -125,6 +125,7 @@ public class OrderController {
             // 将订单和订单详情写入数据库
             // 删除购物车的对应商品
             orderService.saveOrder(omsOrder);
+
             //重定向到支付功能
 
             ModelAndView mv = new ModelAndView("redirect:http://payment.gmall.com:8084/index");

@@ -7,7 +7,6 @@ import com.atguigu.gmall.service.UserService;
 import com.atguigu.gmall.util.HttpclientUtil;
 import com.atguigu.gmall.util.JwtUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.rmi.CORBA.Util;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +35,6 @@ public class PassportController {
     public String verify(String token, String currentIp) {
         //通过jwt验证token真假
         Map<String, String> map = new HashMap<>();
-
 
         //下面通过HttpServletRequest获取的IP地址不正确
         //String ip = request.getHeader("x-forwarded-for");
