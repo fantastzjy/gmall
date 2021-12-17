@@ -38,6 +38,7 @@ public class OrderController {
     SkuService skuService;
 
 
+    //提交订单
     @RequestMapping("submitOrder")
     @LoginRequired(loginSuccess = true)
     public ModelAndView submitOrder(String receiveAddressId, BigDecimal totalAmount, String tradeCode, HttpServletRequest request, HttpServletResponse response, HttpSession session, ModelMap modelMap) {
@@ -45,7 +46,7 @@ public class OrderController {
         String memberId = (String) request.getAttribute("memberId");
         String nickname = (String) request.getAttribute("nickname");
 
-        //检验交易码
+        //检验交易码   防止订单重复提交  传入界面的交易码和服务端进行比较
         String success = orderService.checkTradeCode(memberId, tradeCode);
         //OmsOrderItem存入omsOrderItems存入OmsOrder
 
@@ -80,7 +81,7 @@ public class OrderController {
 
             // 当前日期加一天，一天后配送
             Calendar c = Calendar.getInstance();
-            c.add(Calendar.DATE,1);
+            c.add(Calendar.DATE, 1);
             Date time = c.getTime();
             omsOrder.setReceiveTime(time);
             omsOrder.setSourceType("0"); //改
@@ -89,7 +90,7 @@ public class OrderController {
             omsOrder.setTotalAmount(totalAmount);
 
             // 根据用户id获得要购买的商品列表(购物车)，和总价格
-
+            //因为是从缓存中取出的购物车数据  在生成订单时需要每一件商品都检查 价格和库存是否够
             List<OmsCartItem> omsCartItems = cartService.cartList(memberId);
             ArrayList<OmsOrderItem> omsOrderItems = new ArrayList<>();
 
@@ -98,7 +99,7 @@ public class OrderController {
                     // 获得订单详情列表
                     OmsOrderItem omsOrderItem = new OmsOrderItem();
                     // 检价  在skuService里面实现比较好，如果不是在这里面需要重新复制一份mapper进行查询
-                    boolean b = skuService.checkPrice(omsCartItem.getProductSkuId(),omsCartItem.getPrice());
+                    boolean b = skuService.checkPrice(omsCartItem.getProductSkuId(), omsCartItem.getPrice());
                     if (b == false) {
                         ModelAndView mv = new ModelAndView("tradeFail");
                         return mv;
@@ -129,8 +130,8 @@ public class OrderController {
             //重定向到支付功能
 
             ModelAndView mv = new ModelAndView("redirect:http://payment.gmall.com:8084/index");
-            mv.addObject("outTradeNo",outTradeNo);
-            mv.addObject("totalAmount",totalAmount);
+            mv.addObject("outTradeNo", outTradeNo);
+            mv.addObject("totalAmount", totalAmount);
             return mv;
         } else {
             ModelAndView mv = new ModelAndView("tradeFail");
@@ -139,7 +140,7 @@ public class OrderController {
 
     }
 
-
+    //生成订单     并且生成交易码
     @RequestMapping("toTrade")
     @LoginRequired(loginSuccess = true)
     public String toTrade(HttpServletRequest request, HttpServletResponse response, HttpSession session, ModelMap modelMap) {
@@ -170,7 +171,7 @@ public class OrderController {
         modelMap.put("omsOrderItems", omsOrderItems);
         modelMap.put("userAddressList", umsMemberReceiveAddresses);
         modelMap.put("totalAmount", getTotalAmount(omsCartItems));
-        // 生成交易码，为了在提交订单时做交易码的校验
+        // 生成交易码，并返回到页面且保存到服务端 为了在提交订单时做交易码的校验
         String tradeCode = orderService.genTradeCode(memberId);
         modelMap.put("tradeCode", tradeCode);
 

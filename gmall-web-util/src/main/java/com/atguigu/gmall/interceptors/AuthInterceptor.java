@@ -22,31 +22,26 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         HandlerMethod hm = (HandlerMethod) handler;
         LoginRequired methodAnnotation = hm.getMethodAnnotation(LoginRequired.class);
 
-        // 情况一：是否拦截
+        // 情况一：不拦截
         if (methodAnnotation == null) {
             return true;
         }
 
+        //从cookie或者uel地址 获取token
         String token = "";
-
         String oldToken = CookieUtil.getCookieValue(request, "oldToken", true);
         if (StringUtils.isNotBlank(oldToken)) {
             token = oldToken;
         }
-
         String newToken = request.getParameter("token");
         if (StringUtils.isNotBlank(newToken)) {
             token = newToken;
         }
 
-        // 是否必须登录
-        boolean loginSuccess = methodAnnotation.loginSuccess();// 获得该请求是否必登录成功
-
-        // 调用认证中心进行验证
+        // 调用认证中心进行token验证
         String success = "fail";
         Map<String, String> successMap = new HashMap<>();
         if (StringUtils.isNotBlank(token)) {
-
             String ip = request.getHeader("x-forwarded-for");// 通过nginx转发的客户端ip
             if (StringUtils.isBlank(ip)) {
                 ip = request.getRemoteAddr();// 从request中获取ip
@@ -54,11 +49,15 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                     ip = "127.0.0.1";
                 }
             }
+
             String successJson = HttpclientUtil.doGet("http://www.passport.gmall.com:8081/verify?token=" + token + "&currentIp=" + ip);
             successMap = JSON.parseObject(successJson, Map.class);
 
             success = successMap.get("status");
         }
+
+        // 是否必须登录
+        boolean loginSuccess = methodAnnotation.loginSuccess();// 获得该请求是否必需登录成功
 
         // 情况二：必须登录成功才能使用
         if (loginSuccess) {
@@ -77,7 +76,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                 CookieUtil.setCookie(request, response, "oldToken", token, 60 * 60 * 2, true);
             }
         } else {
-            // 情况二：没有登录也能用，但是必须验证
+            // 情况三：没有登录也能用，但是必须验证
             if (success.equals("success")) {
                 // 需要将token携带的用户信息写入
                 request.setAttribute("memberId", successMap.get("memberId"));

@@ -14,6 +14,8 @@
     <name>gmall-search-web</name>
     <description>Demo project for Spring Boot</description>
 
+
+
     <properties>
         <java.version>1.8</java.version>
     </properties>

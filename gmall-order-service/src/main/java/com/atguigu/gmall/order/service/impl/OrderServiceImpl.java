@@ -11,15 +11,12 @@ import com.atguigu.gmall.order.mapper.OmsOrderMapper;
 import com.atguigu.gmall.service.CartService;
 import com.atguigu.gmall.service.OrderService;
 import com.atguigu.gmall.util.RedisUtil;
-import org.apache.activemq.command.ActiveMQMapMessage;
 import org.apache.activemq.command.ActiveMQTextMessage;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.jms.*;
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -54,8 +51,9 @@ public class OrderServiceImpl implements OrderService {
             //对比防重删令牌
             //使用lue脚本防止一key多用
             String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
-            //成功返回1 失败返回0
+            //成功返回1 失败返回0   如果返回0 说明交易码不相等或已经不存在
             Long eval = (Long) jedis.eval(script, Collections.singletonList(tradeKey), Collections.singletonList(tradeCode));
+
 
             if (eval != null && eval != 0) {
                 // jedis.del(tradeKey);
@@ -66,12 +64,11 @@ public class OrderServiceImpl implements OrderService {
         } finally {
             jedis.close();
         }
-
     }
+
 
     @Override
     public String genTradeCode(String memberId) {
-
 
         Jedis jedis = redisUtil.getJedis();
         String tradeKey = "user:" + memberId + ":tradeCode";

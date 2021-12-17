@@ -113,7 +113,7 @@ spring.dubbo.registry.protocol=zookeeper
 
 # dubbo的服务的扫描路径
 
-spring.dubbo.base-package=com.atguigu.gmall ####为什么扫描路径必须一样 ，不然扫描不到？？？？？？视频14 dubbo服务provider的启动 5月24日4分46面前
+spring.dubbo.base-package=com.atguigu.gmall 
 
 # 设置超时时间
 

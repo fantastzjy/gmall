@@ -101,7 +101,6 @@ public class PassportController {
         }
         umsMember.setGender(g);
 
-
         UmsMember umsCheck = new UmsMember();
         umsCheck.setSourceUid(umsMember.getSourceUid());
         // 检查该用户(社交用户)以前是否登陆过系统
@@ -112,7 +111,6 @@ public class PassportController {
         } else {
             umsMember = umsMemberCheck;
         }
-
 
         // 生成jwt的token，并且重定向到首页，携带该token
         String token = null;
