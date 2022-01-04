@@ -266,7 +266,7 @@
 
                 <div class="box-btns clear">
                     <div class="box-btns-one">
-                        <form id="itemForm" action="http://cart.gmall.com:8079/addToCart" method="post">
+                        <form id="itemForm" action="http://cart.gmall.com/addToCart" method="post">
                             <input type="text" name="quantity" id="" value="1"/>
                             <input type="hidden" name="skuId" th:value="${skuInfo?.id}"/>
 
@@ -1057,7 +1057,7 @@
         if (v_skuId) {
             // http://item.gmall.com:8074/"+skuid+".html
             // window.location.href = "http://127.0.0.1:8074/" + v_skuId + ".html";
-            window.location.href = "http://item.gmall.com:8074/" + v_skuId + ".html";
+            window.location.href = "http://item.gmall.com/" + v_skuId + ".html";
         }
 
     }

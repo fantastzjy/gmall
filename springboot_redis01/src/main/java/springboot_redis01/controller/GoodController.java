@@ -15,7 +15,7 @@ public class GoodController {
     @Value("${server.port}")
     private String serverPort;
 
-    @GetMapping("/buy_goods")
+    @GetMapping("/")
     public String buy_Goods() {
         //synchronized (this) {
             // 从 redis 中获取商品的剩余数量

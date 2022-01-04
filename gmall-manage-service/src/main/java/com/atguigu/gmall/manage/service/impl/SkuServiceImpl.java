@@ -122,17 +122,16 @@ public class SkuServiceImpl implements SkuService {
                     // 这里把空字符串转化成json格式 为了统一返回结果 其他的都是json格式的
                     // jedis.setex  设置访问过期时间 尝试在过段时间在尝试是否有了查询的数据
                     jedis.setex(skuKey, 60 * 3, JSON.toJSONString(""));
-
                 }
 
                 // 在访问mysql后，将mysql的分布锁释放
                 System.out.println("ip为" + ip + "的用户:" + Thread.currentThread().getName() + "使用完毕，将锁归还：" + "sku:" + skuId + ":lock");
 
+                //检查是否是自己加的锁  只有自己能解锁   防止锁被误删
                 String lockToken = jedis.get("sku:" + skuId + ":lock");
                 if (StringUtils.isNotBlank(lockToken) && token.equals(lockToken)) {
                     //jedis.eval("lua");可与用lua脚本，在查询到key的同时删除该key，防止高并发下的意外的发生
                     jedis.del("sku:" + skuId + ":lock");// 用token确认删除的是自己的sku的锁
-
                 }
             } else {
                 // 设置失败，自旋（该线程在睡眠几秒后，重新尝试访问本方法）
@@ -143,7 +142,6 @@ public class SkuServiceImpl implements SkuService {
                 //如果直接就是    getSkuInfoById(skuId, ip);    这条线程就会变成“孤儿”线程  只是调用了，连返回值都没有接收
                 return getSkuInfoById(skuId, ip);
             }
-
         }
         jedis.close();
         return pmsSkuInfo;
@@ -161,7 +159,6 @@ public class SkuServiceImpl implements SkuService {
             List<PmsSkuAttrValue> select = pmsSkuAttrValueMapper.select(pmsSkuAttrValue);
             pmsSkuInfo.setSkuAttrValueList(select);
         }
-
         return pmsSkuInfos;
     }
 
@@ -169,31 +166,22 @@ public class SkuServiceImpl implements SkuService {
     public boolean checkPrice(String productSkuId, BigDecimal productPrice) {
 
         boolean b = false;
-
         PmsSkuInfo pmsSkuInfo = new PmsSkuInfo();
         pmsSkuInfo.setId(productSkuId);
         PmsSkuInfo pmsSkuInfo1 = pmsSkuInfoMapper.selectOne(pmsSkuInfo);
 
         BigDecimal price = pmsSkuInfo1.getPrice();
-
         if(price.compareTo(productPrice)==0){
             b = true;
         }
-
-
         return b;
     }
 
     @Override
     public List<PmsSkuInfo> getSkuSaleAttrValueListBySpu(String productId) {
-
-
         List<PmsSkuInfo> pmsSkuInfos = pmsSkuInfoMapper.selectSkuSaleAttrValueListBySpu(productId);
-
         return pmsSkuInfos;
     }
-
-
 }
 
 
