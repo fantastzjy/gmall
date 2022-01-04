@@ -1,0 +1,8 @@
+fastdfs-client-java.zip   git的包  不用使用
+fdfs-jar包.zip   加压后放入仓库即可
+nginx-1.12.0.zip  使用的nginx
+nginx.conf    上面nginx 中的配置   需要修改host文件使用  加入以下
+-----	127.0.0.1   localhost   item.gmall.com
+        127.0.0.1   passport.gmall.com  search.gmall.com
+     	127.0.0.1   order.gmall.com  user.gmall.com
+      	127.0.0.1   cart.gmall.com    payment.gmall.com
