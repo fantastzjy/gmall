@@ -12,3 +12,6 @@ gmall.sql   sql创建库、表、插入数据
         127.0.0.1   passport.gmall.com  search.gmall.com
      	127.0.0.1   order.gmall.com  user.gmall.com
       	127.0.0.1   cart.gmall.com    payment.gmall.com
+
+#刷新dns缓存
+#ipconfig /flushdns
