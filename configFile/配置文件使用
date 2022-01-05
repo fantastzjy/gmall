@@ -1,6 +1,8 @@
 fastdfs-client-java.zip   git的包  不用使用
 fdfs-jar包.zip   加压后放入仓库即可
 alipay-sdk-jar包.zip     阿里payjar包  放入仓库使用
+
+nginx-1.12.0   直接open in explore  然后运行 路径不能有空格或中文
 nginx-1.12.0.zip  使用的nginx
 nginx.conf    上面nginx 中的配置
 gmall.sql   sql创建库、表、插入数据
