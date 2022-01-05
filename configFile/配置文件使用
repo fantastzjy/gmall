@@ -3,7 +3,7 @@ fdfs-jar包.zip   加压后放入仓库即可
 alipay-sdk-jar包.zip     阿里payjar包  放入仓库使用
 nginx-1.12.0.zip  使用的nginx
 nginx.conf    上面nginx 中的配置
-
+gmall.sql   sql创建库、表、插入数据
 
 需要修改host文件使用   修改映射地址：   C:\Windows\System32\drivers\etc
 -----	127.0.0.1   localhost   item.gmall.com
