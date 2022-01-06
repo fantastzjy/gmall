@@ -82,9 +82,13 @@
                         </div>
                         <div class="clr"></div>
                         <div class="bg_shop">
-                            <a class="btn-tobback" th:href="'http://item.gmall.com/'+${skuInfo.id}+'.html'">查看商品详情</a>
-                            <a class="btn-addtocart" th:href="http://cart.gmall.com/cartList"
-                               id="GotoShoppingCart"><b></b>去购物车结算</a>
+                            <!-- <a class="btn-tobback" href="http://item.gmall.com/+ ${skuInfo.id} +.html">查看商品详情</a>-->
+                            <!-- <a class="btn-addtocart" th:href="http://cart.gmall.com/cartList"-->
+                            <!--                   id="GotoShoppingCart"><b></b>去购物车结算</a>-->
+                            <a href="#"><input type="button" onclick="toItem(121)" value="查看商品详情" class="btn-tobback"></a>
+<!--                            <button onclick="item(121)" type="button">查看商品详情1</button>-->
+                            <!-- <a class="btn-tobback" href="'http://item.gmall.com/'+${skuInfo.id}+'.html'">查看商品详情</a>-->
+                            <a class="btn-addtocart" href="http://cart.gmall.com/cartList" id="GotoShoppingCart"><b></b>去购物车结算</a>
                         </div>
                     </div>
                 </div>
@@ -94,6 +98,14 @@
 
 </div>
 </body>
-<script type="text/javascript" src="/js/success.js"></script>
 
+<script src="/js/index.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/success.js"></script>
+<script type="text/javascript">
+
+    function toItem(skuId) {
+        window.location.href = "http://item.gmall.com/" + skuId + ".html";
+    }
+
+</script>
 </html>
