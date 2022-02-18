@@ -34,7 +34,7 @@ export const constantRouterMap = [
     children: [{
       path: 'dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '谷粒商城后台首页', icon: 'dashboard' }
+      meta: { title: '来溜达商城后台', icon: 'dashboard' }
     }]
   },
 

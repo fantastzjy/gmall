@@ -2,7 +2,7 @@
   "name": "gmall-admin",
   "version": "1.0.0",
   "license": "MIT",
-  "description": "谷粒商城后台管理系统",
+  "description": "来溜达商城后台管理系统",
   "author": "atguigu",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

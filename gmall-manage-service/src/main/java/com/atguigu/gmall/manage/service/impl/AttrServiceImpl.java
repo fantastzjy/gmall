@@ -20,7 +20,6 @@ public class AttrServiceImpl implements AttrService {
 
     @Autowired
     PmsBaseAttrInfoMapper pmsBaseAttrInfoMapper;
-
     @Autowired
     PmsBaseAttrValueMapper pmsBaseAttrValueMapper;
     @Autowired
