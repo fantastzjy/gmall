@@ -29,7 +29,7 @@
         </el-table-column>
         <el-table-column label="商品名称">
           <template slot-scope="scope">
-            <span>{{ scope.row.spuName }}</span>
+            <span>{{ scope.row.productName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="商品描述">
